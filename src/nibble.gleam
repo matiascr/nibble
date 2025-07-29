@@ -5,8 +5,8 @@ import gleam/io
 import gleam/list
 import gleam/option.{type Option, None, Some}
 import gleam/string
+import iv.{type Array}
 import nibble/lexer.{type Span, type Token, Span, Token}
-import nibble/vendor/glearray.{type Array}
 
 // TYPES -----------------------------------------------------------------------
 
@@ -71,7 +71,7 @@ pub fn run(
   parser: Parser(a, tok, ctx),
 ) -> Result(a, List(DeadEnd(tok, ctx))) {
   let init =
-    State(src: glearray.from_list(src), idx: 0, pos: Span(1, 1, 1, 1), ctx: [])
+    State(src: iv.from_list(src), idx: 0, pos: Span(1, 1, 1, 1), ctx: [])
 
   case runwrap(init, parser) {
     Cont(_, a, _) -> Ok(a)
@@ -88,7 +88,7 @@ fn runwrap(
 }
 
 fn next(state: State(tok, ctx)) -> #(Option(tok), State(tok, ctx)) {
-  case glearray.get(state.src, state.idx) {
+  case iv.get(state.src, state.idx) {
     Error(_) -> #(option.None, state)
     Ok(Token(span, _, tok)) -> #(
       option.Some(tok),
