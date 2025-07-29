@@ -7,7 +7,6 @@ version = "1.1.4"
 licences = ["MIT"]
 description = "A string parsing library combining a traditional lexer with parser combinators."
 repository = { type = "github", user = "hayleigh-dot-dev", repo = "gleam-nibble" }
-gleam = ">= 0.34.0"
 
 
 [dependencies]
